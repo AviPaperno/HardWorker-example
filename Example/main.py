@@ -12,8 +12,8 @@ hardworkerapp.config['MAX_TYPE_COUNT'] = {'task_2': 3}
 
 # Выполняется настройка полей для отправки e-mail
 # Введите свои данные или отключите доступ к сети
-hardworkerapp.config['MAIL_LOGIN'] = 'victor.paperno@yandex.ru'
-hardworkerapp.config['MAIL_PASSWORD'] = 'gfgthyj1514'
+hardworkerapp.config['MAIL_LOGIN'] = ''
+hardworkerapp.config['MAIL_PASSWORD'] = ''
 
 # "Перенос" окружения Flask-приложения в текущий проект
 app.template_folder = os.getcwd() + '/templates'
@@ -24,7 +24,7 @@ app.static_folder = os.getcwd() + '/static'
 @task("task_1")
 def task1(params):
     """
-    Возвращает случайно число, после паузы. Длительность паузы задаётся пользователем.
+    Возвращает случайное число после паузы. Длительность паузы задаётся пользователем.
     :param params:
     :return:
     """
@@ -56,7 +56,7 @@ class MyTask(BaseTask):
 
     def run(self, params):
         """
-        Возвращает факториал числоа
+        Возвращает факториал числа
         :param params:
         :return:
         """
@@ -104,7 +104,7 @@ if __name__ == '__main__':
     @app.route('/add_task')
     def add_task():
         """
-        Этот метод генерирует страницу для добавления задачи. Если у неё есть json-схема, то будут автоматически
+        Этот метод генерирует страницу для добавления задачи. Если у задачи есть json-схема, то будут автоматически
         сгенерированны поля для ввода. Если схема отсутствует, то будет единственное поле, для ввода параметров в формате JSON
         :return:
         """
