@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить задачку</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+<script type="text/javascript">
+    function f() {
+        /*
+
+        Эта функция, демонстрирует форму, соответствующую выбранному типу задачи.
+
+         */
+        var select = document.getElementById("type_selection_list").value;
+        var list1 = document.getElementsByName("type_selection_list_item");
+        var L = []
+        for (var i = 0; i < list1.length; i++) {
+            if (list1[i].value != select) {
+                L.push(list1[i].value)
+            }
+        }
+        for (var i = 0; i < L.length; i++) {
+            document.getElementById(L[i]).style.display = "none";
+        }
+        document.getElementById(select).style.display = "block"
+        document.getElementById("manual_json").value = ""
+
+    }
+
+    function add_task2() {
+        /*
+
+        В этой функции отправляется POST запрос на сервер.
+
+         */
+        var type = document.getElementById("type_selection_list").value;
+        var params_f = {};
+        if (document.forms[type].elements['manual_json_' + type] == undefined) {
+            var params_0 = document.forms[type].elements;
+            var params_1 = {};
+            for (var i = 0; i < params_0.length; i++) {
+                if (params_0[i].id != "email") {
+                    if (params_0[i].type == "number")
+                        params_1[params_0[i].id] = parseInt(params_0[i].value);
+                    else
+                        params_1[params_0[i].id] = params_0[i].value;
+                }
+            }
+            var params_f = params_1;
+        }
+        else {
+            params_1 = document.forms[type].elements['manual_json_' + type].value;
+            if (params_1 != "")
+                var params_f = JSON.parse(params_1)
+
+            else {
+                alert("Input params")
+                return;
+            }
+        }
+        var email = document.getElementById("email").value;
+
+        var req = {
+            name: type,
+            email: email,
+            params: params_f
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", '/', true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                alert(xhr.responseText);
+            }
+        }
+
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.send(JSON.stringify(req));
+    }
+
+
+</script>
+
+<div align="center">
+    <label for="type_selection_list">Выберите тип задачи</label>
+    <select id="type_selection_list" onchange="f()">
+        {% for item in items %}
+        <option name="type_selection_list_item">{{item}}</option>
+        {%endfor%}
+    </select>
+    {% for field in fields.keys()%}
+    <form id="{{field}}" style="display: none ">
+        {% if fields[field] %}
+        {% for param in fields[field]%}
+        <label for="{{param[0]}}">{{param[0]}}</label>
+        <input type="{{param[1]['type']}}" id="{{param[0]}}">
+        <br>
+        {%endfor%}
+        {% else %}
+        <label>Введите параметы для запуска в виде JSON </label>
+        <br>
+        <textarea id="manual_json_{{field}}"></textarea>
+        {% endif %}
+    </form>
+
+    {%endfor%}
+    <br>
+    <label for="email">e-mail</label><br><input type="text" id="email">
+
+    <br>
+    <br>
+    <input type="button" onclick="add_task2()" value="Добавить задачу">
+</div>
+<script>document.getElementById(document.getElementById("type_selection_list").value).style.display = "block"</script>
+</body>
+</html>

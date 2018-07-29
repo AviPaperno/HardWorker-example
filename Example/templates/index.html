@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="10">
+    <title>Все данные</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+<H1>Запущенные</H1>
+<table class="simple-little-table">
+    <th>
+    <td>Тип задачи</td>
+    <td>Время запуска</td>
+    <td>Время завершения</td>
+    <td>Аргументы</td>
+    <td>E-mail</td>
+    <td>Статус</td>
+    <td>Результат</td>
+    <td>Путь к файлу результата</td>
+    <td>Отправлен E-mail</td>
+    </th>
+    <tr>
+        <td colspan="10">Выполняются</td>
+    </tr>
+    {% for row_index in range(vals[1]) %}
+    <tr>
+        <td>{{x[1][row_index].id}}</td>
+        <td>{{x[1][row_index].type_of_task }}</td>
+        <td>{{x[1][row_index].time_start}}</td>
+        <td>{{x[1][row_index].time_end}}</td>
+        <td>{{ x[1][row_index].params }}</td>
+        <td>{{x[1][row_index].email}}</td>
+        <td>{{x[1][row_index].status}}</td>
+        <td>{{x[1][row_index].result}}</td>
+        <td>{{x[1][row_index].file_path}}</td>
+        <td>{{x[1][row_index].mailed}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="10">Ожидаются</td>
+    </tr>
+    {% for row_index in range(vals[0]) %}
+    <tr>
+        <td>{{x[0][row_index].id}}</td>
+        <td>{{x[0][row_index].type_of_task }}</td>
+        <td>{{x[0][row_index].time_start}}</td>
+        <td>{{x[0][row_index].time_end}}</td>
+        <td>{{ x[0][row_index].params }}</td>
+        <td>{{x[0][row_index].email}}</td>
+        <td>{{x[0][row_index].status}}</td>
+        <td>{{x[0][row_index].result}}</td>
+        <td>{{x[0][row_index].file_path}}</td>
+        <td>{{x[0][row_index].mailed}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="10">Выполнены</td>
+    </tr>
+    {% for row_index in range(vals[2]-1,-1,-1) %}
+    <tr>
+        <td>{{x[2][row_index].id}}</td>
+        <td>{{x[2][row_index].type_of_task }}</td>
+        <td>{{x[2][row_index].time_start}}</td>
+        <td>{{x[2][row_index].time_end}}</td>
+        <td>{{ x[2][row_index].params }}</td>
+        <td>{{x[2][row_index].email}}</td>
+        <td>{{x[2][row_index].status}}</td>
+        <td>{{x[2][row_index].result}}</td>
+        <td>{{x[2][row_index].file_path}}</td>
+        <td>{{x[2][row_index].mailed}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="10">Ошибочные данные</td>
+    </tr>
+    {% for row_index in range(vals[3]-1,-1,-1) %}
+    <tr>
+        <td>{{x[3][row_index].id}}</td>
+        <td>{{x[3][row_index].type_of_task }}</td>
+        <td>{{x[3][row_index].time_start}}</td>
+        <td>{{x[3][row_index].time_end}}</td>
+        <td>{{ x[3][row_index].params }}</td>
+        <td>{{x[3][row_index].email}}</td>
+        <td>{{x[3][row_index].status}}</td>
+        <td>{{x[3][row_index].result}}</td>
+        <td>{{x[3][row_index].file_path}}</td>
+        <td>{{x[3][row_index].mailed}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список зарегистрированных задач</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+<table class="simple-little-table">
+    <tr>
+        <th>Тип задачи</th>
+        <th>Максимальное количество одновременно запущенных</th>
+    </tr>
+    {% for row_index in range(vals) %}
+    <tr>
+        <td>{{ type[row_index] }}</td>
+        <td>{{ ogr.get(type[row_index],'Нет ограничений') }}</td>
+    </tr>
+
+    {% endfor %}
+</table>
+</body>
+</html>
